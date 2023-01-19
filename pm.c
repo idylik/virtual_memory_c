@@ -28,10 +28,7 @@ void pm_init (FILE *backing_store, FILE *log)
 void pm_download_page (unsigned int page_number, unsigned int frame_number)
 {
   download_count++;
-  /* ¡ TO DO: COMPLÉTER ! */
-  //1 page = 256 char
-  //On a la place pour 32x256 (8192) char dans pm_memory
-  //On a 256x256 char (65536) dans pm_backing_store
+
 
   unsigned int pos_pm = frame_number*PAGE_FRAME_SIZE;
   unsigned int pos_bs = page_number*PAGE_FRAME_SIZE;
@@ -46,8 +43,7 @@ void pm_download_page (unsigned int page_number, unsigned int frame_number)
 void pm_backup_page (unsigned int frame_number, unsigned int page_number)
 {
   backup_count++;
-  /* ¡ TO DO: COMPLÉTER ! */
-  //printf("BACKUP page %i frame %i\n", page_number,frame_number);
+  
     unsigned int pos_pm = frame_number*PAGE_FRAME_SIZE;
     unsigned int pos_bs = page_number*PAGE_FRAME_SIZE;
     fseek(pm_backing_store, pos_bs, SEEK_SET);
@@ -58,7 +54,6 @@ void pm_backup_page (unsigned int frame_number, unsigned int page_number)
 char pm_read (unsigned int physical_address)
 {
   read_count++;
-  /* ¡ TO DO: COMPLÉTER ! */
   return pm_memory[physical_address];
   return '!';
 }
@@ -66,7 +61,6 @@ char pm_read (unsigned int physical_address)
 void pm_write (unsigned int physical_address, char c)
 {
   write_count++;
-  /* ¡ TO DO: COMPLÉTER ! */
     pm_memory[physical_address] = c;
 }
 
