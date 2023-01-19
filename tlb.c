@@ -36,7 +36,6 @@ void tlb_init (FILE *log)
  * Renvoie le `frame_number`, si trouvé, ou un nombre négatif sinon.  */
 static int tlb__lookup (unsigned int page_number, bool write)
 {
-  // TO DO: COMPLÉTER CETTE FONCTION.
   for (int i=0; i < TLB_NUM_ENTRIES; i++) {
 
       if (tlb_entries[i].frame_number != -1 && tlb_entries[i].page_number == page_number) {
@@ -52,10 +51,9 @@ static int tlb__lookup (unsigned int page_number, bool write)
 static void tlb__add_entry (unsigned int page_number,
                             unsigned int frame_number, bool readonly)
 {
-    //printf("tlb_add_entry: %i, %i\n",page_number,frame_number);
+
     //Chaque fois qu'on ajoute dans Page Table, on ajoute ENSUITE dans TLB.
     //On ajoute readonly=1 chaque fois que la page est accédée
-  // TO DO: COMPLÉTER CETTE FONCTION.
 
   //Si page number déjà présent, mettre à jour:
   for (int i=0; i < TLB_NUM_ENTRIES; i++) {
@@ -63,7 +61,6 @@ static void tlb__add_entry (unsigned int page_number,
           //mettre à jour:
           tlb_entries[i].frame_number = frame_number;
           tlb_entries[i].readonly = readonly;
-          //printf("met à jour entree %i, page %i, frame %i, readonly %i\n", i, page_number,frame_number, tlb_entries[i].readonly);
           return;
       }
   }
@@ -93,7 +90,6 @@ static void tlb__add_entry (unsigned int page_number,
         tlb_sec_chance_count = tlb_sec_chance_count % TLB_NUM_ENTRIES;
     }
 
-    //printf("readonly victime: %i\n",tlb_entries[tlb_sec_chance_count].readonly);
     //tlb_sec_chance_count est l'index de la victime
     tlb_entries[tlb_sec_chance_count].page_number = page_number;
     tlb_entries[tlb_sec_chance_count].frame_number = frame_number;
