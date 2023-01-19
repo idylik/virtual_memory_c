@@ -42,10 +42,9 @@ static int pt__lookup (unsigned int page_number)
  * pointe vers `frame_number`.  */
 static void pt__set_entry (unsigned int page_number, unsigned int frame_number)
 {
-  // TO DO: COMPLÉTER CETTE FONCTION.
+
   page_table[page_number].frame_number = frame_number;
   page_table[page_number].valid = 1;
-  //printf("set entry valid, page: %d\n",page_number);
   pt_set_ref(page_number,1);
   pt_set_readonly(page_number,1);
 }
@@ -53,7 +52,6 @@ static void pt__set_entry (unsigned int page_number, unsigned int frame_number)
 /* Marque l'entrée de `page_number` dans la page table comme invalide.  */
 void pt_unset_entry (unsigned int page_number)
 {
-  // TO DO: COMPLÉTER CETTE FONCTION.
   page_table[page_number].valid = 0;
     //Unset aussi dans TLB
 }
@@ -61,7 +59,6 @@ void pt_unset_entry (unsigned int page_number)
 /* Renvoie si `page_number` est `readonly`.  */
 bool pt_readonly_p (unsigned int page_number)
 {
-  // TO DO: COMPLÉTER CETTE FONCTION.
   if (page_table[page_number].readonly == 0) return false;
   return true;
 }
@@ -69,14 +66,12 @@ bool pt_readonly_p (unsigned int page_number)
 /* Change l'accès en écriture de `page_number` selon `readonly`.  */
 void pt_set_readonly (unsigned int page_number, bool readonly)
 {
-  // TO DO: COMPLÉTER CETTE FONCTION.
   page_table[page_number].readonly = readonly;
 }
 
 /* Renvoie si `page_number` est `ref`.  */
 bool pt_ref_p (unsigned int page_number)
 {
-    // TO DO: COMPLÉTER CETTE FONCTION.
     if (page_table[page_number].ref == 0) return false;
     return true;
 }
@@ -85,7 +80,6 @@ bool pt_ref_p (unsigned int page_number)
 void pt_set_ref (unsigned int page_number, bool ref)
 {
 
-    // TO DO: COMPLÉTER CETTE FONCTION.
     page_table[page_number].ref = ref;
 }
 
