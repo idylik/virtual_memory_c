@@ -52,9 +52,7 @@ int vmm_choose_victim(void) {
         for (int j=sec_chance_count; j < sec_chance_count+NUM_FRAMES; j++) {
             int f = j%NUM_FRAMES;
             int p = occupied_frames[f];
-            //printf("f: %d\n",f);
-            //printf("p: %d\n",p);
-                //exit(0);
+
                 bool ref = pt_ref_p(p);
                 bool readonly =  pt_readonly_p(p);
                 //printf("Search victim: p: %i, f: %i, ref: %i, readonly: %i\n", p, fn, ref, readonly);
@@ -74,8 +72,6 @@ int vmm_choose_victim(void) {
 
                 //Set reference bit à 0 (seconde chance):
                 pt_set_ref(p, 0);
-                //printf("Search victim AFTER: p: %i, f: %i, ref: %i, readonly: %i\n", p, fn, pt_ref_p(p), readonly);
-
         }
     }
     return 0;
@@ -93,7 +89,6 @@ int access_frame(unsigned int page_number) {
         frame_number = pt_lookup(page_number);
 
         if (frame_number < 0) { //PAGE FAULT, pas dans la mémoire physique -> downloader
-            //printf("PAGE FAULT %d\n", page_number);
             //Chercher frame libre:
             for (int i=0; i < NUM_FRAMES; i++) {
                 if (occupied_frames[i] < 0) {
@@ -106,7 +101,6 @@ int access_frame(unsigned int page_number) {
                 //Chercher frame victime avec Page Table
                 frame_number = vmm_choose_victim();
                 int p = occupied_frames[frame_number];
-                //printf("Memoire physique: la victime est page %d, frame %d\n", p, frame_number);
 
                 //Si victime a readonly=0 -> écrire la frame dans le backstore
                 if (pt_readonly_p(p) == 0) {
@@ -121,7 +115,6 @@ int access_frame(unsigned int page_number) {
             //Mettre à jour: frame_number dans pt, valid=1, readonly=1, ref=1
             pm_download_page(page_number, frame_number);
             pt_set_entry(page_number,frame_number);
-            //sec_chance_count = (sec_chance_count+1) % NUM_PAGES;
 
         }
     }
@@ -131,7 +124,6 @@ int access_frame(unsigned int page_number) {
 
     //Updater reference dans Page Table
     pt_set_ref(page_number,1);
-    //printf("set ref to 1: page: %i, ref: %i\n", page_number, pt_ref_p(page_number));
 
     return frame_number;
 }
@@ -145,7 +137,6 @@ char vmm_read (unsigned int laddress)
     read_count++;
 
 
-  /* ¡ TO DO: COMPLÉTER ! */
 
     unsigned int physical_address;
 
@@ -170,7 +161,6 @@ char vmm_read (unsigned int laddress)
 void vmm_write (unsigned int laddress, char c)
 {
   write_count++;
-  /* ¡ TO DO: COMPLÉTER ! */
 
     unsigned int physical_address;
 
@@ -187,7 +177,6 @@ void vmm_write (unsigned int laddress, char c)
     //Marquer page comme modifiée:
     pt_set_readonly(page_number, 0);
 
-  // TO DO: Fournir les arguments manquants.
   vmm_log_command (stdout, "WRITING", laddress, page_number, frame_number, offset, physical_address, c);
 }
 
