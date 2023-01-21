@@ -151,7 +151,7 @@ char vmm_read (unsigned int laddress)
     //Lire caractère dans mémoire physique
     c = pm_read(physical_address);
 
-  // TO DO: Fournir les arguments manquants.
+
   vmm_log_command (stdout, "READING", laddress, page_number, frame_number, offset, physical_address, c);
   return c;
 }
